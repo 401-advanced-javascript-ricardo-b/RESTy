@@ -14,16 +14,33 @@ class Form extends React.Component{
     event.preventDefault();
     const url = event.target.url.value
     this.setState({url})
+    
+    try{
+      var api = await fetch(url, {method: this.state.method || 'GET', mode: 'cors'})
+        // .then(response =>{
+        //   if(response.status !==200)return;
+        //   return response.json()
+        // });
+    }catch(e){
+      console.error(e);
+    }
+    try{
+      console.log('headers?', api.headers)
+      let data = await api.json();
+      let headers = {};
+
+      for(let pair of api.headers.entries()){
+        headers[pair[0]] = pair[1]
+      }
+
+      this.props.getHeaders(headers);
+      // this.props.getResults(api);
+      console.log({data})
+    }catch(e){
+      console.error(e);
+    }
+    
     if(this.state.method){this.setState({display: true})}
-
-    const api = await fetch(url, {method: this.state.method, mode: 'cors'})
-      .then(response =>{
-        if(response.status !==200)return;
-        return response.json()
-      });
-
-    this.props.getResults(api);
-      
   }
 
   handleClick = e=>{

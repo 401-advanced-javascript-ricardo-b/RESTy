@@ -13,16 +13,20 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      count: 0,
-      results: [],
+      // count: 0,
+      // results: [],
       headers: {}
     }
   }
 
   // allows class childeren to change count, headers and results
-  getResults = (count, headers, results)=>{
-    this.setState({count, headers, results});
-    // console.log('this.state', this.state);
+  // getResults = (count, headers, results)=>{
+  //   this.setState({count, headers, results});
+  //   // console.log('this.state', this.state);
+  // }
+
+  getHeaders = (headers)=>{
+    this.setState({ headers });
   }
 
   render(){
@@ -30,6 +34,7 @@ class App extends React.Component{
       <div id="appRender">
         <Header />
         <Form 
+          giveHeaders={this.getHeaders}
           getResults={this.getResults}
         />
         <Results

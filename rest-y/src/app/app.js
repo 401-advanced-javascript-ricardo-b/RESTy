@@ -13,17 +13,20 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      // count: 0,
-      // results: [],
+      count: 0,
+      results: [],
       headers: {}
     }
   }
 
   // allows class childeren to change count, headers and results
-  // getResults = (count, headers, results)=>{
-  //   this.setState({count, headers, results});
-  //   // console.log('this.state', this.state);
-  // }
+  getResults = (info)=>{ //could pass headers here, if we pass multiple arguments
+    // console.log('this is info on get results from app:',info)
+    this.setState({results: info.results});
+    this.setState({count: info.count});
+    // this.setState({headers: info.headers});
+    // console.log('this.state', this.state);
+  }
 
   getHeaders = (headers)=>{
     this.setState({ headers });

@@ -17,28 +17,46 @@ class Form extends React.Component{
     
     try{
       var api = await fetch(url, {method: this.state.method || 'GET', mode: 'cors'})
-        // .then(response =>{
-        //   if(response.status !==200)return;
-        //   return response.json()
-        // });
+        .then(response =>{
+
+          let headers = {};
+          console.log('response.headers:', response.headers)
+          for(let pair of response.headers.entries()){
+            headers[pair[0]] = pair[1]
+          }
+
+          console.log('what is headers?: ', headers);
+          this.props.giveHeaders(headers);
+
+          if(response.status !==200)return;
+          return response.json()
+        });
+        // console.log('api after fetch: ', api);
+        console.log('api looking for headers: ', api)
+      
+      this.props.getResults(api)
+      
+
     }catch(e){
       console.error(e);
     }
-    try{
-      console.log('headers?', api.headers)
-      let data = await api.json();
-      let headers = {};
+    // try{
+    //   // console.log('api looking for headers: ', api)
+    //   // let data = await api.json();
 
-      for(let pair of api.headers.entries()){
-        headers[pair[0]] = pair[1]
-      }
+    //   let headers = {};
+    //   console.log('api.headers:', api.headers)
+    //   for(let pair of api.headers.entries()){
+    //     headers[pair[0]] = pair[1]
+    //   }
 
-      this.props.getHeaders(headers);
-      // this.props.getResults(api);
-      console.log({data})
-    }catch(e){
-      console.error(e);
-    }
+    //   console.log('what is headers?: ', headers);
+    //   // console.log('this is data without the function',data);
+    //   this.props.giveHeaders(headers);
+      
+    // }catch(e){
+    //   console.error(e);
+    // }
     
     if(this.state.method){this.setState({display: true})}
   }
@@ -80,6 +98,10 @@ class Form extends React.Component{
     )
   }
 }
+
+// function 
+
+
 
 export default Form;
   

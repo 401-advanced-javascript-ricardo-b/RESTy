@@ -19,7 +19,7 @@ class Form extends React.Component{
       var api = await fetch(url, {method: this.state.method || 'GET', mode: 'cors'})
         .then(response =>{
 
-          let headers = {};
+          let headers = {};``
           console.log('response.headers:', response.headers)
           for(let pair of response.headers.entries()){
             headers[pair[0]] = pair[1]
